@@ -1,12 +1,21 @@
 library json_to_dto;
 
-String generateClasses(String className, Map<String, dynamic> jsonMap) {
-  final buffer = StringBuffer()..writeln();
-  final generatedClasses = <String>{};
+import 'dart:convert';
 
-  _generateClass(buffer, className, jsonMap, generatedClasses);
+extension JsonToDTOStrings on String {
+  String toDtoDart([String className = 'Root']) =>
+      (jsonDecode(this) as Map<String, dynamic>).toDtoDart(className);
+}
 
-  return buffer.toString();
+extension JsonMapExtension on Map<String, dynamic> {
+  String toDtoDart([String className = 'Root']) {
+    final buffer = StringBuffer()..writeln();
+    final generatedClasses = <String>{};
+
+    _generateClass(buffer, className, this, generatedClasses);
+
+    return buffer.toString();
+  }
 }
 
 void _generateClass(
@@ -122,7 +131,3 @@ String _getType(dynamic value, String key) {
 }
 
 String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
-
-extension JsonMapExtension on Map<String, dynamic> {
-  String toDtoDart(String className) => generateClasses(className, this);
-}

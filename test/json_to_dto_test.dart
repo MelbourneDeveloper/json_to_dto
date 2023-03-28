@@ -8,20 +8,7 @@ import 'person.dart';
 const jsonString =
     '{"name": "John", "age": 30, "isMarried": false, "height": 1.75, "children": [{"name": "Alice", "children" : [{"name":"Tim"}]}, {"name": "Bob"}], "address": {"street": "Main Street", "number": 123}}';
 
-void main() {
-  group('A group of tests', () {
-    test('Test Generation', () {
-      final code = generateClasses(
-        'Person',
-        json.decode(jsonString) as Map<String, dynamic>,
-      );
-      expect(code, example);
-    });
-
-    test('Test toDtoDart', () {
-      final code = <String, dynamic>{'test': 123}.toDtoDart('TestScore');
-
-      expect(code, '''
+const testScoreCode = '''
 
 class TestScore {
   final int? test;
@@ -40,7 +27,26 @@ this.test, });
       'test': test,    };
   }
 }
-''');
+''';
+
+void main() {
+  group('A group of tests', () {
+    test('Test Generation', () {
+      final decode = json.decode(jsonString) as Map<String, dynamic>;
+      final code = decode.toDtoDart('Person');
+      expect(code, example);
+    });
+
+    test('Test toDtoDart', () {
+      final code = <String, dynamic>{'test': 123}.toDtoDart('TestScore');
+
+      expect(code, testScoreCode);
+    });
+
+    test('Test toDtoDart from String', () {
+      final code = '{ "test" : 123 }'.toDtoDart('TestScore');
+
+      expect(code, testScoreCode);
     });
 
     test('Test Generated Model', () {

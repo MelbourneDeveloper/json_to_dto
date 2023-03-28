@@ -11,7 +11,7 @@ const jsonString =
 void main() {
   final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
-  final code = generateClasses('Person', jsonMap);
+  final code = jsonMap.toDtoDart('Person');
 
   File('person.dart').writeAsStringSync(code);
 }
