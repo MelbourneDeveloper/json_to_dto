@@ -1,6 +1,6 @@
 name: json_to_dto
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
+description: Convert JSON to Dart DTOs and back. Automate the model creation and the toJson and fromJson methods
+version: 0.1.0-beta
 repository: https://github.com/MelbourneDeveloper/json_to_dto
 
 environment:

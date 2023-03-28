@@ -13,5 +13,5 @@ void main() {
 
   final code = generateClasses('Person', jsonMap);
 
-  File('../test/person.dart').writeAsStringSync(code);
+  File('person.dart').writeAsStringSync(code);
 }

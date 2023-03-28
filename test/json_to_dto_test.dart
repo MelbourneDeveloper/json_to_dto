@@ -18,6 +18,31 @@ void main() {
       expect(code, example);
     });
 
+    test('Test toDtoDart', () {
+      final code = <String, dynamic>{'test': 123}.toDtoDart('TestScore');
+
+      expect(code, '''
+
+class TestScore {
+  final int? test;
+
+  TestScore({
+this.test, });
+
+
+  factory TestScore.fromJson(Map<String, dynamic> json) {
+    return TestScore(
+      test: json['test'] != null ? json['test'] as int? : null,    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'test': test,    };
+  }
+}
+''');
+    });
+
     test('Test Generated Model', () {
       //Put it through the ringer
       var map = json.decode(jsonString) as Map<String, dynamic>;
