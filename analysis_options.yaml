@@ -9,5 +9,7 @@ analyzer:
     avoid_annotating_with_dynamic: ignore
     implicit_dynamic_method: ignore
     lines_longer_than_80_chars: ignore
+    public_member_api_docs: error
+
   exclude:
     - 'test/person.dart'

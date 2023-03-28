@@ -2,12 +2,17 @@ library json_to_dto;
 
 import 'dart:convert';
 
+///json_to_dto extension on String
 extension JsonToDTOStrings on String {
+  ///Converts a JSON string to a Dart PODO DTO class. This assumes that the JSON string
+  ///is a valid JSON object. If it is not, an exception will be thrown.
   String toDtoDart([String className = 'Root']) =>
       (jsonDecode(this) as Map<String, dynamic>).toDtoDart(className);
 }
 
+///json_to_dto extension on String
 extension JsonMapExtension on Map<String, dynamic> {
+  ///Converts a Map<String,dynamic> to a Dart PODO DTO class.
   String toDtoDart([String className = 'Root']) {
     final buffer = StringBuffer()..writeln();
     final generatedClasses = <String>{};
