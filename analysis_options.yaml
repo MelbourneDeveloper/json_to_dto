@@ -13,3 +13,4 @@ analyzer:
 
   exclude:
     - 'test/person.dart'
+    - 'test/book.dart'

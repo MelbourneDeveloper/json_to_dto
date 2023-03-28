@@ -32,71 +32,71 @@ class _MainAppState extends State<MainApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(useMaterial3: true),
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: CodeTheme(
-                      data: const CodeThemeData(styles: monokaiSublimeTheme),
-                      child: CodeField(
-                        controller: _codeController,
-                        textStyle: const TextStyle(fontFamily: 'SourceCode'),
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(
+          useMaterial3: true,
+        ),
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: CodeTheme(
+                        data: const CodeThemeData(styles: monokaiSublimeTheme),
+                        child: CodeField(
+                          controller: _codeController,
+                          textStyle: const TextStyle(fontFamily: 'SourceCode'),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 90,
-                    width: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _codeController.language = json;
-                            _codeController.text = initialJson;
-                          });
-                        },
-                        child: const Text('RESET'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 90,
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _codeController.language = json;
+                              _codeController.text = initialJson;
+                            });
+                          },
+                          child: const Text('RESET'),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 90,
-                    width: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _codeController.language = dart;
-                            _codeController.text =
-                                //This is the magic that converts the JSON to Dart
-                                _codeController.text.toDtoDart();
-                          });
-                        },
-                        child: const Text('GENERATE'),
+                    SizedBox(
+                      height: 90,
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _codeController.language = dart;
+                              _codeController.text =
+                                  //This is the magic that converts the JSON to Dart
+                                  _codeController.text.toDtoDart();
+                            });
+                          },
+                          child: const Text('GENERATE'),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:json_to_dto/json_to_dto.dart';
 import 'package:test/test.dart';
 
+import 'book.dart';
+import 'books_json.dart';
 import 'person.dart';
 
 const jsonString =
@@ -67,6 +69,22 @@ void main() {
       expect(person.children![1].name, 'Bob');
       expect(person.address!.street, 'Main Street');
       expect(person.address!.number, 123);
+    });
+
+    test('Test Book DTO', () async {
+      final decode = json.decode(booksJson) as Map<String, dynamic>;
+
+      //final code = decode.toDtoDart('Book');
+
+      final book = Book.fromJson(decode);
+
+      final map = book.toJson();
+
+      final secondBook = Book.fromJson(map);
+
+      expect(secondBook.books![0].title, 'The Catcher in the Rye');
+
+      //await File('book.dart').writeAsString(code);
     });
   });
 }
