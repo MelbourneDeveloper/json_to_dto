@@ -18,7 +18,7 @@ void _generateClass(StringBuffer buffer, String className,
   buffer.writeln('class $className {');
 
   jsonMap.forEach((key, value) {
-    final type = getType(value, key);
+    final type = _getType(value, key);
     buffer.writeln('  final $type? $key;');
   });
 
@@ -36,13 +36,13 @@ void _generateClass(StringBuffer buffer, String className,
     ..writeln('  factory $className.fromJson(Map<String, dynamic> json) {')
     ..writeln('    return $className(')
     ..writeAll(jsonMap.entries.map((e) {
-      final type = getType(e.value, e.key);
+      final type = _getType(e.value, e.key);
       if (type.startsWith('List<')) {
         return '      ${e.key}: (json[\'${e.key}\'] as List<dynamic>?)?.map((e) => ${type.substring(5, type.length - 1)}.fromJson(e as Map<String, dynamic>)).toList(),';
       } else if (e.value is Map) {
-        return '      ${e.key}: json[\'${e.key}\'] !=null ? ${getType(e.value, e.key)}.fromJson(json[\'${e.key}\'] as Map<String, dynamic>) : null,';
+        return '      ${e.key}: json[\'${e.key}\'] !=null ? ${_getType(e.value, e.key)}.fromJson(json[\'${e.key}\'] as Map<String, dynamic>) : null,';
       } else {
-        return '      ${e.key}: json[\'${e.key}\'] != null ? json[\'${e.key}\'] as ${getType(e.value, e.key)}? : null,';
+        return '      ${e.key}: json[\'${e.key}\'] != null ? json[\'${e.key}\'] as ${_getType(e.value, e.key)}? : null,';
       }
     }), '')
     ..writeln('    );')
@@ -54,7 +54,7 @@ void _generateClass(StringBuffer buffer, String className,
     ..writeln('  Map<String, dynamic> toJson() {')
     ..writeln('    return {')
     ..writeAll(jsonMap.entries.map((e) {
-      final type = getType(e.value, e.key);
+      final type = _getType(e.value, e.key);
       if (type.startsWith('List<')) {
         return '      \'${e.key}\': ${e.key}?.map((e) => e.toJson()).toList(),';
       } else if (e.value is Map) {
@@ -69,23 +69,23 @@ void _generateClass(StringBuffer buffer, String className,
 
   jsonMap.forEach((key, value) {
     if (value is Map<String, dynamic>) {
-      _generateClass(buffer, getType(value, key), value, generatedClasses);
+      _generateClass(buffer, _getType(value, key), value, generatedClasses);
     } else if (value is List) {
       if (value.isNotEmpty && value.first is Map) {
         _generateClass(
-            buffer, getType(value.first, key), value.first, generatedClasses);
+            buffer, _getType(value.first, key), value.first, generatedClasses);
       }
       value.forEach((element) {
         if (element is Map<String, dynamic>) {
           _generateClass(
-              buffer, getType(element, key), element, generatedClasses);
+              buffer, _getType(element, key), element, generatedClasses);
         }
       });
     }
   });
 }
 
-String getType(dynamic value, String key) {
+String _getType(dynamic value, String key) {
   if (value is int) {
     return 'int';
   } else if (value is double) {
@@ -98,15 +98,15 @@ String getType(dynamic value, String key) {
     if (value.isEmpty) {
       return 'List<dynamic>';
     } else {
-      return 'List<${getType(value.first, key)}>';
+      return 'List<${_getType(value.first, key)}>';
     }
   } else if (value is Map) {
-    return capitalize(key);
+    return _capitalize(key);
   } else {
     return 'dynamic';
   }
 }
 
-String capitalize(String s) {
+String _capitalize(String s) {
   return s[0].toUpperCase() + s.substring(1);
 }
