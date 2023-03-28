@@ -20,6 +20,16 @@ void main() {
       final person =
           Person.fromJson(json.decode(jsonString) as Map<String, dynamic>);
       expect(person.name, 'John');
+      expect(person.age, 30);
+      expect(person.isMarried, false);
+      expect(person.height, 1.75);
+      expect(person.children!.length, 2);
+      expect(person.children![0].name, 'Alice');
+      expect(person.children![0].children!.length, 1);
+      expect(person.children![0].children![0].name, 'Tim');
+      expect(person.children![1].name, 'Bob');
+      expect(person.address!.street, 'Main Street');
+      expect(person.address!.number, 123);
     });
   });
 }
