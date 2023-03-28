@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:json_to_dto/json_to_dto.dart';
 
@@ -9,6 +10,8 @@ void main() {
   final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
   final code = generateClasses('Person', jsonMap);
+
+  File('example.dart').writeAsStringSync(code);
 
   print(code);
 }
