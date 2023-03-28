@@ -1,14 +1,13 @@
 name: json_to_dto
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/MelbourneDeveloper/json_to_dto
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
 
-# dependencies:
-#   path: ^1.8.0
 
 dev_dependencies:
+  austerity: ^0.0.10-beta
   lints: ^2.0.0
   test: ^1.21.0

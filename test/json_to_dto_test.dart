@@ -12,7 +12,9 @@ void main() {
   group('A group of tests', () {
     test('Test Generation', () {
       final code = generateClasses(
-          'Person', json.decode(jsonString) as Map<String, dynamic>);
+        'Person',
+        json.decode(jsonString) as Map<String, dynamic>,
+      );
       expect(code, example);
     });
 
