@@ -19,8 +19,12 @@ void main() {
     });
 
     test('Test Generated Model', () {
-      final person =
-          Person.fromJson(json.decode(jsonString) as Map<String, dynamic>);
+      //Put it through the ringer
+      var map = json.decode(jsonString) as Map<String, dynamic>;
+      var person = Person.fromJson(map);
+      map = person.toJson();
+      person = Person.fromJson(map);
+
       expect(person.name, 'John');
       expect(person.age, 30);
       expect(person.isMarried, false);
