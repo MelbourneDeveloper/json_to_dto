@@ -1,11 +1,11 @@
 import 'package:code_text_field/code_text_field.dart';
+import 'package:example/books_json.dart';
 import 'package:flutter/material.dart';
 import 'package:json_to_dto/json_to_dto.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:highlight/languages/json.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
-
-var initialJson = '{ "test" : 123 }';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MainApp());
@@ -27,17 +27,30 @@ class _MainAppState extends State<MainApp> {
 
     _codeController = CodeController(
       language: json,
-      text: initialJson,
+      text: booksJson,
     );
   }
 
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(
+        theme: ThemeData(
+          brightness: Brightness.dark,
           useMaterial3: true,
         ),
         home: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'JSON to DTO',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Color(0xFF333333),
+            elevation: 4.0,
+          ),
           body: Center(
             child: Column(
               children: [
@@ -67,7 +80,7 @@ class _MainAppState extends State<MainApp> {
                           onPressed: () {
                             setState(() {
                               _codeController.language = json;
-                              _codeController.text = initialJson;
+                              _codeController.text = booksJson;
                             });
                           },
                           child: const Text('RESET'),
@@ -89,6 +102,22 @@ class _MainAppState extends State<MainApp> {
                             });
                           },
                           child: const Text('GENERATE'),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 90,
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              launchUrl(Uri.parse(
+                                  'https://www.christianfindlay.com'));
+                            });
+                          },
+                          child: const Text('HIRE ME'),
                         ),
                       ),
                     ),

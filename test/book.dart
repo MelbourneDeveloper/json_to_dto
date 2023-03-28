@@ -1,12 +1,12 @@
-class Book {
+class Root {
   final List<Books>? books;
 
-  Book({
+  Root({
     this.books,
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
+  factory Root.fromJson(Map<String, dynamic> json) {
+    return Root(
       books: (json['books'] as List<dynamic>?)
           ?.map((e) => Books.fromJson(e as Map<String, dynamic>))
           .toList(),
